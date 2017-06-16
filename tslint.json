@@ -50,6 +50,7 @@
       "timeEnd",
       "trace"
     ],
+    "switch-default": true,
     "no-construct": true,
     "no-debugger": true,
     "no-duplicate-super": true,
@@ -60,7 +61,7 @@
       true,
       "ignore-params"
     ],
-    "no-unused-variable": true,
+    "Warning: The 'no-unused-variable' rule requires type checking": true,
     "no-misused-new": true,
     "no-non-null-assertion": true,
     "no-shadowed-variable": true,
@@ -86,7 +87,9 @@
     ],
     "radix": true,
     "semicolon": [
-      "always"
+      true,
+      "always",
+      "ignore-bound-class-methods"
     ],
     "triple-equals": [
       true,

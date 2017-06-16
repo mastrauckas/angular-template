@@ -29,13 +29,13 @@ module.exports = class WebpackHelper {
     return this.isDevelopment ? 'inline-source-map' : 'source-map';
   }
 
-  get entries () {
+  get entries() {
     const vendorPackages = Object.keys(packages.dependencies).filter(d => d !== 'core-js');
 
     return {
       'app': './src/main.ts',
       'vendor': vendorPackages,
-      'polyfills':  './src/polyfills.ts'
+      'polyfills': './src/polyfills.ts'
     };
   }
 
@@ -44,7 +44,7 @@ module.exports = class WebpackHelper {
       {
         exclude: /node_modules/,
         test: /\.ts$/,
-        use: [ "ts-loader", "angular2-template-loader" ]
+        use: ["ts-loader", "angular2-template-loader"]
       },
       {
         test: /\.html$/,
@@ -54,7 +54,7 @@ module.exports = class WebpackHelper {
       {
         test: /\.scss$/,
         exclude: /node_modules/,
-        use: [ "raw-loader", "sass-loader" ]
+        use: ["raw-loader", "sass-loader"]
       },
       {
         test: /\.(png|jpe?g|gif|svg|woff|woff2|otf|ttf|eot|ico)$/,
@@ -77,7 +77,7 @@ module.exports = class WebpackHelper {
         exclude: /node_modules/,
         enforce: 'pre',
         loader: 'tslint-loader',
-        options: { emitErrors: true, }
+        options: { typeCheck: true, emitErrors: true, failOnHint: true }
       },
     ];
   }
@@ -103,8 +103,8 @@ module.exports = class WebpackHelper {
         /angular(\\|\/)core(\\|\/)@angular/,
         // location of your src
         helpers.root('src'), {
-            // your Angular Async Route paths relative to this root directory
-      })
+          // your Angular Async Route paths relative to this root directory
+        })
     ];
 
     if (this.isProduction) {
@@ -131,13 +131,13 @@ module.exports = class WebpackHelper {
       }));
     }
 
-      return plugins;
+    return plugins;
   }
 
   get webpackDevServer() {
-     return {
-        historyApiFallback: true,
-        stats: "verbose",
+    return {
+      historyApiFallback: true,
+      stats: "verbose",
     };
   }
 }
