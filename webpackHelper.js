@@ -72,13 +72,6 @@ module.exports = class WebpackHelper {
         include: helpers.root("src", "app"),
         use: "raw-loader"
       },
-      {
-        test: /\.ts$/,
-        exclude: /node_modules/,
-        enforce: 'pre',
-        loader: 'tslint-loader',
-        options: { emitErrors: true, }
-      },
     ];
   }
 
