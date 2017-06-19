@@ -1,5 +1,7 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const ProgressBarPlugin = require('progress-bar-webpack-plugin');
+const chalk = require('chalk');
 const webpack = require('webpack');
 const helpers = require("./helpers");
 const packages = require('./package.json');
@@ -7,6 +9,15 @@ const packages = require('./package.json');
 module.exports = class WebpackHelper {
   constructor(environment) {
     this.environment = environment;
+    this.init();
+  }
+
+  init() {
+    this.userExtractCssPlugin = new ExtractTextPlugin({
+      filename: this.outputCssFileName,
+      allChunks: true
+    });
+
   }
 
   get isProduction() {
@@ -23,6 +34,18 @@ module.exports = class WebpackHelper {
 
   get outputChunkFilename() {
     return this.isDevelopment ? './build/js/[id].bundle.chunk.js' : './build/js/[id].bundle.chunk.[chunkhash:8].min.js';
+  }
+
+  get outputCssFileName () {
+    return this.isDevelopment ? 'css/app.bundle.css' : 'css/app.bundle.[chunkhash:8].min.css';
+  }
+
+  get vendorOutputCssFileName() {
+    return this.isDevelopment ? 'css/vendor.bundle.css' : 'css/vendor.bundle.[chunkhash:8].min.css';
+  }
+
+  get vendorExtractTextPlugin() {
+    return this.vendorExtractCssPlugin;
   }
 
   get devTools() {
@@ -61,26 +84,33 @@ module.exports = class WebpackHelper {
         exclude: /node_modules/,
         use: "file-loader?name=assets/[name].[hash].[ext]"
       },
-      {
-        test: /\.css$/,
-        exclude: helpers.root("src", "app"),
-        use: ExtractTextPlugin.extract({ fallback: "style-loader", loader: "css-loader?sourceMap" })
-      },
-      {
-        test: /\.css$/,
-        exclude: /node_modules/,
-        include: helpers.root("src", "app"),
-        use: "raw-loader"
-      },
     ];
   }
 
   get plugins() {
     const plugins = [
+      new webpack.NoEmitOnErrorsPlugin(),
+      new ProgressBarPlugin({
+        format: '  build [:bar] ' + chalk.green.bold(':percent') + ' (:elapsed seconds)',
+        clear: false
+      }),
+
+      new webpack.DefinePlugin({
+          isDevelopment : JSON.stringify(this.isDevelopment),
+          isProduction : JSON.stringify(this.isProduction),
+      }),
 
       new HtmlWebpackPlugin({
         template: "src/index.html",
         chunksSortMode: 'dependency',
+        fileName: "./index.html",
+        hash: false,
+        compile: true,
+        favicon: false,
+        cache: true,
+        showErrors: true,
+        chunks: "all",
+        excludeChunks: [],
 
         minify: {
           removeComments: this.isProduction,
@@ -90,8 +120,10 @@ module.exports = class WebpackHelper {
 
       new webpack.optimize.CommonsChunkPlugin({
         names: ['vendor', 'manifest'],
-        minChunks: Infinity
+        minChunks: Infinity,
+        main: ['app']
       }),
+
       new webpack.ContextReplacementPlugin(
         /angular(\\|\/)core(\\|\/)@angular/,
         // location of your src
@@ -125,6 +157,20 @@ module.exports = class WebpackHelper {
     }
 
       return plugins;
+  }
+
+  get node() {
+    return {
+      "fs": "empty",
+      "global": true,
+      "crypto": "empty",
+      "tls": "empty",
+      "net": "empty",
+      "process": true,
+      "module": false,
+      "clearImmediate": false,
+      "setImmediate": false
+    };
   }
 
   get webpackDevServer() {

@@ -39,5 +39,7 @@ module.exports = {
   },
 
   plugins: webpackHelper.plugins,
-  devServer: webpackHelper.webpackDevServer
+  devServer: webpackHelper.webpackDevServer,
+  node: webpackHelper.node,
+
 };
