@@ -136,7 +136,7 @@ module.exports = class WebpackHelper {
       plugins.push(new webpack.optimize.OccurrenceOrderPlugin());
       plugins.push(new webpack.NamedModulesPlugin());
       plugins.push(new webpack.optimize.UglifyJsPlugin({
-        sourceMap: false,
+        sourceMap: true,
         minimize: true,
         beautify: false,
         mangle: { screw_ie8: true, keep_fnames: true },
