@@ -1,7 +1,7 @@
 //To run in production, put in
 //NODE_ENV=production webpack
 const path = require('path');
-const WebpackHelper = require("./webpackHelper");
+const WebpackHelper = require("./webpack/webpackHelper");
 
 const environment = process.env.NODE_ENV.toUpperCase();
 
