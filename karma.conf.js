@@ -1,30 +1,30 @@
-var webpackConfig = require("./webpack/webpack.config.karma");
+var webpackConfig = require('./webpack/webpack.config.karma');
 
 module.exports = function (config) {
   var _config = {
-    basePath: "",
+    basePath: '',
 
-    frameworks: ["jasmine"],
+    frameworks: ['jasmine'],
 
     files: [
-      { pattern: "./karma/karma-test-shim.js", watched: false }
+      { pattern: './karma/karma-test-shim.js', watched: false }
     ],
 
     preprocessors: {
-      "./karma/karma-test-shim.js": ["webpack", "sourcemap"]
+      './karma/karma-test-shim.js': ['webpack', 'sourcemap']
     },
 
     webpack: webpackConfig,
 
     webpackMiddleware: {
-      stats: "errors-only"
+      stats: 'errors-only'
     },
 
     webpackServer: {
       noInfo: true
     },
 
-    reporters: ["progress", "kjhtml", "karma-typescript"],
+    reporters: ['progress', 'kjhtml'],
     port: 9876,
     // enable / disable colors in the output (reporters and logs)
     colors: true,
@@ -35,7 +35,11 @@ module.exports = function (config) {
     autoWatch: true,
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['Chrome'],
+    //ChromeHeadless
+    //ChromeCanaryHeadless
+    //karma start --browsers ChromeHeadless Firefox,Chrome
+    //'Chrome', 'ChromeCanary', 'IE', 'Firefox', 'FirefoxDeveloper', 'Safari', 'opera'
+    // --singleRun
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
     singleRun: false,
