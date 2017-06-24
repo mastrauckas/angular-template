@@ -36,7 +36,7 @@ module.exports = class WebpackHelper {
     return this.isDevelopment ? './build/js/[id].bundle.chunk.js' : './build/js/[id].bundle.chunk.[chunkhash:8].min.js';
   }
 
-  get outputCssFileName () {
+  get outputCssFileName() {
     return this.isDevelopment ? 'css/app.bundle.css' : 'css/app.bundle.[chunkhash:8].min.css';
   }
 
@@ -90,13 +90,13 @@ module.exports = class WebpackHelper {
   get plugins() {
     const plugins = [
       new webpack.NoEmitOnErrorsPlugin(),
-      new ProgressBarPlugin({
-        format: '  build [:bar] ' + chalk.green.bold(':percent') + ' (:elapsed seconds)',
-        clear: false
-      }),
+      // new ProgressBarPlugin({
+      //   format: '  build [:bar] ' + chalk.green.bold(':percent') + ' (:elapsed seconds)',
+      //   clear: false
+      // }),
 
       new webpack.DefinePlugin({
-          environment: JSON.stringify(this.environment),
+        environmentName: JSON.stringify(this.environment),
       }),
 
       new HtmlWebpackPlugin({

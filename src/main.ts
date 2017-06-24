@@ -1,11 +1,10 @@
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { enableProdMode } from '@angular/core';
 import { AppModule } from './app/app.module';
-import { environment } from './globals';
+import { environmentName } from './globals';
 
-console.log(environment);
-if (environment === 'PRODUCTION') {
-    enableProdMode();
+if (environmentName === 'PRODUCTION') {
+  enableProdMode();
 }
 
 

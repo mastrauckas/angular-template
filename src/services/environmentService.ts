@@ -1,10 +1,10 @@
 // import { Injectable } from '@angular/core';
-import { IEnvironment } from 'environment';
-import { environment } from '../globals';
+import { Environment } from '../interfaces/environment';
+import { environmentName } from '../globals';
 
 // @Injectable()
-export default class EnvironmentService implements IEnvironment  {
-  private environmentName: String = environment;
+export default class EnvironmentService implements Environment {
+  private environmentName: String = environmentName;
 
   get isDevelopment(): boolean {
     return this.environmentName === 'DEVELOPMENT';

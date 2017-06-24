@@ -1,3 +1,3 @@
-declare const environment: String;
-const env: String = environment;
-export { env as environment };
+declare const environmentName: String;
+const env: String = environmentName;
+export { env as environmentName };
