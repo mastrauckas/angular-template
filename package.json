@@ -44,6 +44,8 @@
     "test:windowsallbrowsers:nowatch": "yarn run test:windowscommonbrowsers:nowatch && yarn run test:canary:nowatch && yarn run test:firefoxdev:nowatch && yarn run test:safari:nowatch",
     "test:windows10commonbrowsers:nowatch": "yarn run test:windowscommonbrowsers:nowatch && yarn run test:edge:nowatch",
     "test:windows10allbrowsers:nowatch": "yarn run test:windows10commonbrowsers:nowatch && yarn run test:opera:watch && yarn run test:safari:nowatch",
+    "test:maccommonbrowsers:nowatch": "yarn run test:commonbrowsers && yarn run test:safari:nowatch",
+    "test:macallbrowsers:nowatch": "yarn run test:maccommonbrowsers:nowatch && yarn run test:canary:nowatch && yarn run test:firefoxdev:nowatch",
     "clean": "rimraf ./build"
   },
   "dependencies": {
