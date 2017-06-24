@@ -39,8 +39,11 @@
     "test:edge:nowatch": "cross-env NODE_ENV=development karma start ./karma.conf.js --browsers Edge --singleRun",
     "test:opera:watch": "cross-env NODE_ENV=development karma start ./karma.conf.js --browsers Opera",
     "test:opera:nowatch": "cross-env NODE_ENV=development karma start ./karma.conf.js --browsers Opera --singleRun",
-    "test:allbrowsers:nowatch": "cross-env NODE_ENV=development karma start ./karma.conf.js --browsers Chrome,ChromeCanary,IE,Firefox,FirefoxDeveloper,Safari,Opera --singleRun",
-    "test:macallbrowsers:nowatch": "cross-env NODE_ENV=development karma start ./karma.conf.js --browsers Chrome,ChromeCanary,Firefox,FirefoxDeveloper,Safari --singleRun",
+    "test:commonbrowsers": "npm run test:chrome:nowatch && npm run test:firefox:nowatch",
+    "test:windowscommonbrowsers:nowatch": "npm run test:commonbrowsers && npm run test:ie:nowatch",
+    "test:windowsallbrowsers:nowatch": "npm run test:windowscommonbrowsers:nowatch && npm run test:canary:nowatch && npm run test:firefoxdev:nowatch && npm run test:safari:nowatch",
+    "test:windows10commonbrowsers:nowatch": "npm run test:windowscommonbrowsers:nowatch && npm run test:edge:nowatch",
+    "test:windows10allbrowsers:nowatch": "npm run test:windows10commonbrowsers:nowatch && npm run test:opera:watch && npm run test:safari:nowatch",
     "clean": "rimraf ./build"
   },
   "dependencies": {
