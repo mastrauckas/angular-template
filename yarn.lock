@@ -75,7 +75,7 @@ acorn-dynamic-import@^2.0.0:
   dependencies:
     acorn "^4.0.3"
 
-acorn@^4.0.11, acorn@^4.0.3, acorn@^4.0.4:
+acorn@^4.0.3, acorn@^4.0.4:
   version "4.0.13"
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-4.0.13.tgz#105495ae5361d697bd195c825192e1ad7f253787"
 
@@ -2129,9 +2129,9 @@ html-minifier@^3.0.1, html-minifier@^3.2.3:
     relateurl "0.2.x"
     uglify-js "3.0.x"
 
-html-webpack-plugin@^2.26.0:
-  version "2.28.0"
-  resolved "https://registry.yarnpkg.com/html-webpack-plugin/-/html-webpack-plugin-2.28.0.tgz#2e7863b57e5fd48fe263303e2ffc934c3064d009"
+html-webpack-plugin@^2.29.0:
+  version "2.29.0"
+  resolved "https://registry.yarnpkg.com/html-webpack-plugin/-/html-webpack-plugin-2.29.0.tgz#e987f421853d3b6938c8c4c8171842e5fd17af23"
   dependencies:
     bluebird "^3.4.7"
     html-minifier "^3.2.3"
@@ -2687,14 +2687,6 @@ karma-super-dots-reporter@^0.1.0:
   dependencies:
     chalk "^0.5.1"
     log-symbols "^1.0.1"
-
-karma-typescript-angular2-transform@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/karma-typescript-angular2-transform/-/karma-typescript-angular2-transform-1.0.0.tgz#b3fb9e41a50cff54c555dc7565d593f7ad697bdb"
-  dependencies:
-    acorn "^4.0.11"
-    log4js "^1.1.1"
-    magic-string "^0.19.0"
 
 karma-typescript@^3.0.4:
   version "3.0.4"
