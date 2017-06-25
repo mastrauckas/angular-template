@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 import EnvironmentService from '../../services/environmentService';
 
 @Component({
-    selector: 'app-hello-world',
-    templateUrl: './helloWorld.component.html',
-    styleUrls: [ './helloWorld.component.scss' ],
-    providers: [EnvironmentService]
+  selector: 'app-hello-world',
+  templateUrl: './helloWorld.component.html',
+  styleUrls: ['./helloWorld.component.scss'],
+  providers: [EnvironmentService]
 })
 export default class HelloWorldComponent {
   constructor(environmentService: EnvironmentService) {

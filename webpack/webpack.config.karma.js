@@ -1,6 +1,8 @@
 var webpack = require("webpack");
 var helpers = require("./helpers");
 
+const environmentName = process.env.NODE_ENV.toUpperCase();
+
 module.exports = {
   devtool: "inline-source-map",
 
@@ -17,10 +19,6 @@ module.exports = {
       {
         test: /\.html$/,
         use: "html-loader"
-      },
-      {
-        test: /\.pug$/,
-        use: ["raw-loader", "pug-html-loader"]
       },
       {
         test: /\.scss$/,
@@ -45,6 +43,9 @@ module.exports = {
   },
 
   plugins: [
+    new webpack.DefinePlugin({
+      environmentName: JSON.stringify(environmentName),
+    }),
     // Workaround for Angular-SystemJS-Webpack(2) WARNINGS
     new webpack.ContextReplacementPlugin(
       /angular(\\|\/)core(\\|\/)@angular/,
@@ -52,6 +53,6 @@ module.exports = {
       {
         // your Angular Async Route paths relative to this root directory
       }
-    )
+    ),
   ]
 };
