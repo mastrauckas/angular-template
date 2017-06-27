@@ -204,7 +204,7 @@ module.exports = class WebpackHelper {
   get webpackDevServer() {
     return {
       historyApiFallback: true,
-      stats: "verbose",
+      stats: this.stats,
     };
   }
 }
