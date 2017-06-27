@@ -105,21 +105,22 @@ module.exports = class WebpackHelper {
       }),
 
       new HtmlWebpackPlugin({
-        template: "src/index.html",
-        "chunksSortMode": (left, right) => {
-          let leftIndex = this.entryPoints.indexOf(left.names[0]);
-          let rightindex = this.entryPoints.indexOf(right.names[0]);
-          if (leftIndex > rightindex) {
-            return 1;
-          }
-          else if (leftIndex < rightindex) {
-            return -1;
-          }
-          else {
-            return 0;
-          }
-        },
-        fileName: "./index.html",
+        template: 'src/index.html',
+        // 'chunksSortMode': (left, right) => {
+        //   let leftIndex = this.entryPoints.indexOf(left.names[0]);
+        //   let rightindex = this.entryPoints.indexOf(right.names[0]);
+        //   if (leftIndex > rightindex) {
+        //     return 1;
+        //   }
+        //   else if (leftIndex < rightindex) {
+        //     return -1;
+        //   }
+        //   else {
+        //     return 0;
+        //   }
+        // },
+        'chunksSortMode': 'dependency',
+        fileName: './index.html',
         hash: false,
         compile: false,
         favicon: false,
@@ -220,6 +221,7 @@ module.exports = class WebpackHelper {
 
   get webpackDevServer() {
     return {
+      port: 4200,
       historyApiFallback: true,
       stats: this.stats,
     };
