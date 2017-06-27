@@ -46,6 +46,26 @@ module.exports = {
     new webpack.DefinePlugin({
       environmentName: JSON.stringify(environmentName),
     }),
+    new webpack.optimize.OccurrenceOrderPlugin(),
+    new webpack.NamedModulesPlugin(),
+    new webpack.optimize.UglifyJsPlugin({
+      sourceMap: true,
+      minimize: true,
+      beautify: false,
+      mangle: { screw_ie8: true, keep_fnames: true },
+      dead_code: true,
+      unused: true,
+      deadCode: true,
+      comments: false,
+      compress: {
+        screw_ie8: true,
+        keep_fnames: true,
+        drop_debugger: false,
+        dead_code: false,
+        unused: false,
+        warnings: false
+      }
+    }),
     // Workaround for Angular-SystemJS-Webpack(2) WARNINGS
     new webpack.ContextReplacementPlugin(
       /angular(\\|\/)core(\\|\/)@angular/,
