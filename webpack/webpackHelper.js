@@ -56,9 +56,9 @@ module.exports = class WebpackHelper {
     const vendorPackages = Object.keys(packages.dependencies).filter(d => d !== 'core-js');
 
     return {
+      'polyfills': './src/polyfills.ts',
       'app': './src/main.ts',
       'vendor': vendorPackages,
-      'polyfills': './src/polyfills.ts'
     };
   }
 
@@ -104,9 +104,9 @@ module.exports = class WebpackHelper {
         chunksSortMode: 'dependency',
         fileName: "./index.html",
         hash: false,
-        compile: true,
+        compile: false,
         favicon: false,
-        cache: true,
+        cache: false,
         showErrors: true,
         chunks: "all",
         excludeChunks: [],
@@ -156,6 +156,35 @@ module.exports = class WebpackHelper {
     }
 
     return plugins;
+  }
+
+  get stats() {
+    return {
+      colors: true,
+      hash: false,
+      version: true,
+      timings: true,
+      assets: true,
+      chunks: false,
+      modules: false,
+      reasons: true,
+      children: true,
+      source: false,
+      errors: true,
+      errorDetails: true,
+      warnings: true,
+      publicPath: true,
+      cached: false,
+      cachedAssets: false,
+      chunkModules: false,
+      chunkOrigins: false,
+      depth: false,
+      entrypoints: false,
+      performance: false,
+      providedExports: false,
+      usedExports: false,
+      maxModules: 0,
+    };
   }
 
   get node() {

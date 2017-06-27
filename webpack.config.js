@@ -28,6 +28,8 @@ module.exports = {
     extensions: ['.js', '.ts']
   },
 
+  stats: webpackHelper.stats,
+
   output: {
     path: path.join(process.cwd(), 'build'),
     filename: webpackHelper.outputFileName,
