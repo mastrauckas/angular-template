@@ -7,6 +7,11 @@ const helpers = require("./helpers");
 const packages = require('../package.json');
 
 module.exports = class WebpackHelper {
+
+  get entryPoints() {
+    return ['inline', 'polyfills', 'manifest', 'sw-register', 'styles', 'vendor', 'app'];
+  }
+
   constructor(environment) {
     this.environment = environment;
     this.init();
@@ -90,10 +95,10 @@ module.exports = class WebpackHelper {
   get plugins() {
     const plugins = [
       new webpack.NoEmitOnErrorsPlugin(),
-      // new ProgressBarPlugin({
-      //   format: '  build [:bar] ' + chalk.green.bold(':percent') + ' (:elapsed seconds)',
-      //   clear: false
-      // }),
+      new ProgressBarPlugin({
+        format: '  build [:bar] ' + chalk.green.bold(':percent') + ' (:elapsed seconds)',
+        clear: false
+      }),
 
       new webpack.DefinePlugin({
         environmentName: JSON.stringify(this.environment),
@@ -101,7 +106,19 @@ module.exports = class WebpackHelper {
 
       new HtmlWebpackPlugin({
         template: "src/index.html",
-        chunksSortMode: 'dependency',
+        "chunksSortMode": (left, right) => {
+          let leftIndex = this.entryPoints.indexOf(left.names[0]);
+          let rightindex = this.entryPoints.indexOf(right.names[0]);
+          if (leftIndex > rightindex) {
+            return 1;
+          }
+          else if (leftIndex < rightindex) {
+            return -1;
+          }
+          else {
+            return 0;
+          }
+        },
         fileName: "./index.html",
         hash: false,
         compile: false,
