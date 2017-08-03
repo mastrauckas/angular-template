@@ -1,21 +1,11 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const chalk = require('chalk');
-const {
-  NamedModulesPlugin,
-  ContextReplacementPlugin,
-  NoEmitOnErrorsPlugin,
-   DefinePlugin
-} = require('webpack');
-const helpers = require("./helpers");
 const packages = require('../package.json');
 const path = require('path');
 const fs = require('fs');
 const autoprefixer = require('autoprefixer');
 const postcssUrl = require('postcss-url');
 const cssnano = require('cssnano');
-const { CommonsChunkPlugin, OccurrenceOrderPlugin, UglifyJsPlugin } = require('webpack').optimize;
+
 
 const nodeModules = path.join(process.cwd(), 'node_modules');
 const realNodeModules = fs.realpathSync(nodeModules);
@@ -35,7 +25,7 @@ module.exports = class WebpackHelper {
       'polyfills': './src/polyfills.ts',
       'app': './src/main.ts',
       'styles': [
-        './src\\styles.css'
+        './src/styles.css'
       ],
       'vendor': vendorPackages,
     };
@@ -51,6 +41,12 @@ module.exports = class WebpackHelper {
 
   get devTools() {
     return this.isDevelopment ? 'inline-source-map' : 'source-map';
+  }
+
+  get resolve() {
+    return {
+      extensions: [".ts", ".js"]
+    };
   }
 
   constructor(environment) {
@@ -191,104 +187,6 @@ module.exports = class WebpackHelper {
         ]
       },
     ];
-  }
-
-  get plugins() {
-    const plugins = [
-      new NoEmitOnErrorsPlugin(),
-      new ProgressBarPlugin({
-        format: '  build [:bar] ' + chalk.green.bold(':percent') + ' (:elapsed seconds)',
-        clear: false
-      }),
-
-      new DefinePlugin({
-        environmentName: JSON.stringify(this.environment),
-      }),
-
-      new HtmlWebpackPlugin({
-        template: 'src/index.html',
-        chunksSortMode: (left, right) => {
-          let leftIndex = this.entryPoints.indexOf(left.names[0]);
-          let rightindex = this.entryPoints.indexOf(right.names[0]);
-          if (leftIndex > rightindex) {
-            return 1;
-          }
-          else if (leftIndex < rightindex) {
-            return -1;
-          }
-          else {
-            return 0;
-          }
-        },
-        fileName: './index.html',
-        hash: false,
-        compile: false,
-        favicon: false,
-        cache: false,
-        showErrors: true,
-        chunks: "all",
-        excludeChunks: [],
-
-        minify: {
-          removeComments: this.isProduction,
-          collapseWhitespace: this.isProduction
-        }
-      }),
-
-      new CommonsChunkPlugin({
-        "name": [
-          "manifest"
-        ],
-        "minChunks": null
-      }),
-      new CommonsChunkPlugin({
-        "name": [
-          "vendor"
-        ],
-        "minChunks": (module) => {
-                  return module.resource
-                      && (module.resource.startsWith(nodeModules)
-                          || module.resource.startsWith(genDirNodeModules)
-                          || module.resource.startsWith(realNodeModules));
-              },
-        "chunks": [
-          "main"
-        ]
-      }),
-
-      new ContextReplacementPlugin(
-        /angular(\\|\/)core(\\|\/)@angular/,
-        // location of your src
-        helpers.root('src'), {
-          // your Angular Async Route paths relative to this root directory
-        })
-    ];
-
-    if (this.isProduction) {
-
-      plugins.push(new OccurrenceOrderPlugin());
-      plugins.push(new NamedModulesPlugin());
-      plugins.push(new UglifyJsPlugin({
-        sourceMap: true,
-        minimize: true,
-        beautify: false,
-        mangle: { screw_ie8: true, keep_fnames: true },
-        dead_code: true,
-        unused: true,
-        deadCode: true,
-        comments: false,
-        compress: {
-          screw_ie8: true,
-          keep_fnames: true,
-          drop_debugger: false,
-          dead_code: false,
-          unused: false,
-          warnings: false
-        }
-      }));
-    }
-
-    return plugins;
   }
 
   get postcssPlugins() {

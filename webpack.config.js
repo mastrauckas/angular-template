@@ -1,13 +1,9 @@
 //To run in production, put in
 //NODE_ENV=production webpack
-const WebpackHelper = require("./webpack/webpackHelper");
+const WebpackDevHelper = require("./webpack/webpackDevHelper");
 
 const environment = process.env.NODE_ENV.toUpperCase();
-
-const PRODUCTION = environment === 'PRODUCTION';
-const DEVELOPMENT = environment === 'DEVELOPMENT';
-
-const webpackHelper = new WebpackHelper(environment);
+const webpackHelper = new WebpackDevHelper(environment);
 
 const colors = {
   reset: '\x1b[0m',
