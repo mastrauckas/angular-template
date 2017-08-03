@@ -1,6 +1,5 @@
 //To run in production, put in
 //NODE_ENV=production webpack
-const path = require('path');
 const WebpackHelper = require("./webpack/webpackHelper");
 
 const environment = process.env.NODE_ENV.toUpperCase();
@@ -23,18 +22,13 @@ module.exports = {
 
   devtool: webpackHelper.devTools,
   entry: webpackHelper.entries,
+  output: webpackHelper.output,
 
   resolve: {
     extensions: ['.js', '.ts']
   },
 
   stats: webpackHelper.stats,
-
-  output: {
-    path: path.join(process.cwd(), 'build'),
-    filename: webpackHelper.outputFileName,
-    chunkFilename: webpackHelper.outputChunkFilename,
-  },
 
   module: {
     rules: webpackHelper.rules

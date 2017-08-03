@@ -1,6 +1,8 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    //Fixes https://github.com/ReactiveX/rxjs/issues/2539
+    "noStrictGenericChecks": true,
     "baseUrl": "src",
     "sourceMap": true,
     "declaration": false,
